@@ -13,14 +13,9 @@ jobs:
             - name: Install Cowsay Program
               run: sudo apt-get install cowsay -y
 
-            - name: Execute Cowsay CMD
-              run: cowsay -f dragon "Run for cover, I am a DUURRAAGOON!!....RAWRR!!" >> dragon.txt
-
-            - name: Test File Exists
-              run: grep -i "duurraagoon" dragon.txt
-
-            - name: Test File Exists
-              run: cat dragon.txt
-
             - name: view Repo Files
               run: ls -ltra
+              
+            - name: Executing shell script
+              run: ./ascii-script.sh
+
