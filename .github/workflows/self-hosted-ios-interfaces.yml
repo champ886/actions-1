@@ -1,10 +1,7 @@
 name: Deploy with Ansible
 
 on:
-  pull_request:
-    branches:
-      - master
-    types: [closed]
+  push
 
 jobs:
   deploy:
