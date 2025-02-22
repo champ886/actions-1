@@ -18,6 +18,10 @@ jobs:
             ANSIBLE_USER: champ
             ANSIBLE_PLAYBOOK: /home/champ/ansible/ansible-ubuntu-home-lab/router_playbook_template_02.yml
             ANSIBLE_INVENTORY: /home/champ/ansible/ansible-ubuntu-home-lab/cisco_inventory.yml
+         # run: |
+          #  ssh -o StrictHostKeyChecking=no ${ANSIBLE_USER}@${ANSIBLE_HOST}  'ansible-playbook -i $ANSIBLE_INVENTORY $ANSIBLE_PLAYBOOK'
           run: |
-            ssh -o StrictHostKeyChecking=no ${ANSIBLE_USER}@${ANSIBLE_HOST}  'ansible-playbook -i $ANSIBLE_INVENTORY $ANSIBLE_PLAYBOOK'
+            ssh -o StrictHostKeyChecking=no ${ANSIBLE_USER}@${ANSIBLE_HOST}  \ 
+            'ansible-playbook -i /home/champ/ansible/ansible-ubuntu-home-lab/cisco_inventory.yml \
+             /home/champ/ansible/ansible-ubuntu-home-lab/cisco_inventory.yml'
 
