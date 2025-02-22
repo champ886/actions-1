@@ -1,0 +1,26 @@
+name: Deploy with Ansible
+
+on:
+  pull_request:
+    branches:
+      - master
+    types: [closed]
+
+jobs:
+  deploy:
+    name: Deploy Ansible Playbook for Cisco IOS interfaces
+    runs-on: [self-hosted, Linux, X64, dev, lab]
+    environment: staging
+    steps:
+        - name: Checkout Repo
+          uses: actions/checkout@v4
+
+        - name: Run Ansible Playbook
+          env:
+            ANSIBLE_HOST: 192.168.0.110
+            ANSIBLE_USER: champ
+            ANSIBLE_PLAYBOOK: /home/champ/ansible/ansible-ubuntu-home-lab/router_playbook_template_02.yml
+            ANSIBLE_INVENTORY: /home/champ/ansible/ansible-ubuntu-home-lab/cisco_inventory.yml
+          run: |
+            ssh -o StrictHostKeyChecking=no ${ANSIBLE_USER}@${ANSIBLE_HOST} \\ 'ansible-playbook -i $ANSIBLE_INVENTORY $ANSIBLE_PLAYBOOK'
+
