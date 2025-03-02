@@ -1,0 +1,28 @@
+name: Deploy with Ansible
+
+on:
+  push
+
+jobs:
+  checkout:
+    name: Deploy Ansible Playbook for Cisco IOS interfaces
+    runs-on: [self-hosted, Linux, X64, dev, lab]
+    # environment: staging again again again
+    steps:
+        - name: Checkout Repo
+          uses: actions/checkout@v4
+  
+  deploy:
+    needs: checkout
+    name: Deploy Ansible Playbook for Cisco IOS interfaces
+    runs-on: [self-hosted, Linux, X64, dev, lab]
+    steps:
+        - name: Run Ansible Playbook
+          env:
+            ANSIBLE_HOST: 192.168.0.110
+            ANSIBLE_USER: champ
+            ANSIBLE_PLAYBOOK: /home/champ/ansible/IBGP/playbook_dynamic.yml
+            ANSIBLE_INVENTORY: /home/champ/ansible/IBGP/inventroy.ini
+          run: |
+            
+            ssh -o StrictHostKeyChecking=no ${ANSIBLE_USER}@${ANSIBLE_HOST}  ansible-playbook -i $ANSIBLE_INVENTORY $ANSIBLE_PLAYBOOK
